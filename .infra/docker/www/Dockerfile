@@ -45,11 +45,11 @@ RUN apt-get install -y nodejs npm
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 
 # Config Apache
-ENV APACHE_RUN_USER $APPUSERNAME
-ENV APACHE_RUN_GROUP $APPGROUPNAME
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 
-RUN chown $APPUSERNAME:$APPGROUPNAME -R /var/www
+RUN chown www-data:www-data -R /var/www
 RUN chmod -R 755 /var/www
 
 COPY config/000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -57,7 +57,10 @@ COPY config/php.ini /etc/php/$PHP_VERSION/apache2/php.ini
 RUN a2enmod rewrite headers
 RUN service apache2 start
 
-RUN groupadd -r -g 1000 appuser && useradd -r -u 1000 appuser -g appuser
+RUN groupadd -r -g 1000 appuser
+RUN usermod -u 1000 www-data
+RUN usermod -G appuser www-data
+
 
 WORKDIR /var/www/html
 
