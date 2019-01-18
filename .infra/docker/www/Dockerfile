@@ -57,10 +57,8 @@ COPY config/php.ini /etc/php/$PHP_VERSION/apache2/php.ini
 RUN a2enmod rewrite headers
 RUN service apache2 start
 
-RUN groupadd -r -g 1000 appuser
 RUN usermod -u 1000 www-data
-RUN usermod -G appuser www-data
-
+RUN groupmod -g 1000 www-data
 
 WORKDIR /var/www/html
 
