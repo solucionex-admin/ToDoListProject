@@ -1,0 +1,6 @@
+#!/bin/sh
+# This is a shell script to execute the apache bash with the www-data user
+# You should change the name of the container: 'app-www' to adapt it to your project
+# And you can change the name of the user 'www-data' to adapt it to your project too
+
+docker exec -it -u www-data app-www "$@"
