@@ -73,7 +73,7 @@ And access via browser:
 http://docker.test:80
 ```
 
-### Terminal
+### Terminal
 
 We can access **as root** (not recommended) to the server via terminal writing the command:
 
@@ -86,6 +86,22 @@ And non-root, with the user www-data:
 ```sh
 docker-compose exec -u www-data www bash
 ```
+
+### Script to make it Easy
+You can copy the file .infra/docker/docker-exec to the root of your project and ma
+ke it executable:
+```sh
+cp .infra/docker/docker-exec docker-exec
+chmod a+x docker-exec
+```
+
+From now you will be able to access to the apache bash or execute any command in y
+our php server executing the script docker-exec:
+```sh
+./docker-exec bash
+```
+
+Inside the Shell Script there are a few instructions, basically you will be able to change the script to access to the bash with another user or to other container, in case you have changed it.
 
 
 ### Other commands
